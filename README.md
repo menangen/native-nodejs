@@ -15,6 +15,12 @@ const addon = require('./build/Release/addon');
 
 console.log(addon.hello(0.5));
 ```
+
 * `const addon` - addon(.so/.dll) (addon.node)
 * `hello(0.5)` - call **Function** *hello* with (*0.5*) **Number** parameter.
 * `hello` call C function `float cosine_interpolate()` from Node namespace module.
+
+
+1. Install node-gyp: `sudo npm install -g node-gyp`
+2. Configure with `node-gyp configure`
+3. Compile with: `node-gyp build`
