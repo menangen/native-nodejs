@@ -1,6 +1,8 @@
 #include <math.h>
 
-const float GRAD3[][3] = {
+unsigned char mountains = 0;
+
+const double GRAD3[][3] = {
         {1,1,0},{-1,1,0},{1,-1,0},{-1,-1,0},
         {1,0,1},{-1,0,1},{1,0,-1},{-1,0,-1},
         {0,1,1},{0,-1,1},{0,1,-1},{0,-1,-1},
@@ -58,8 +60,6 @@ void resort_permutation() {
 
 }
 
-unsigned char mountains = 0;
-
 double cosine_interpolate(const double alpha, const double a, const double b) {
     const double ft = alpha * 3.1415927;
     double f = (1 - cos(ft)) * 0.5;
@@ -77,22 +77,22 @@ grad2(const int hash, const double x, const double y)
 
 
 double
-noise2(float x, float y, const float repeatx, const float repeaty, const int base)
+noise2(double x, double y, const double repeatx, const double repeaty, const int base)
 {
     double perlin_result;
 
     double fx, fy;
     int A, AA, AB, B, BA, BB;
-    int i = (int)floorf(fmodf(x, repeatx));
-    int j = (int)floorf(fmodf(y, repeaty));
-    int ii = (int)fmodf(i + 1, repeatx);
-    int jj = (int)fmodf(j + 1, repeaty);
+    int i = (int)floor(fmod(x, repeatx));
+    int j = (int)floor(fmod(y, repeaty));
+    int ii = (int)fmod(i + 1, repeatx);
+    int jj = (int)fmod(j + 1, repeaty);
     i = (i & 255) + base;
     j = (j & 255) + base;
     ii = (ii & 255) + base;
     jj = (jj & 255) + base;
 
-    x -= floorf(x); y -= floorf(y);
+    x -= floor(x); y -= floor(y);
 
     /// Maps a value onto a quintic S-curve.
     /// @param x The value to map onto a quintic S-curve.
@@ -119,20 +119,13 @@ noise2(float x, float y, const float repeatx, const float repeaty, const int bas
     switch (mountains) {
         case 1:
             return fabs(perlin_result);
-            break;
-
         case 2:
         case 4:
-            return 1.0f - fabs(perlin_result);
-            break;
-
+            return 1.0 - fabs(perlin_result);
         case 3:
-            return fabs(1.0f-fabs(perlin_result)*2.0f)*2.0f-1.0f;
-            break;
-
+            return fabs(1.0-fabs(perlin_result)*2.0)*2.0-1.0;
         default:
             return perlin_result;
-            break;
     }
 
 }
