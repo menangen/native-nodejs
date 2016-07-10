@@ -60,28 +60,28 @@ void resort_permutation() {
 
 unsigned char mountains = 0;
 
-float cosine_interpolate(const float alpha, const float a, const float b) {
-    const float ft = alpha * 3.1415927;
-    float f = (1 - cos(ft)) * 0.5;
+double cosine_interpolate(const double alpha, const double a, const double b) {
+    const double ft = alpha * 3.1415927;
+    double f = (1 - cos(ft)) * 0.5;
     
     return  a*(1-f) + b*f;
 }
 
 
-float inline
-grad2(const int hash, const float x, const float y)
+double inline
+grad2(const int hash, const double x, const double y)
 {
     const int h = hash & 15;
     return x * GRAD3[h][0] + y * GRAD3[h][1];
 }
 
 
-float
+double
 noise2(float x, float y, const float repeatx, const float repeaty, const int base)
 {
-    float perlin_result;
+    double perlin_result;
 
-    float fx, fy;
+    double fx, fy;
     int A, AA, AB, B, BA, BB;
     int i = (int)floorf(fmodf(x, repeatx));
     int j = (int)floorf(fmodf(y, repeaty));
